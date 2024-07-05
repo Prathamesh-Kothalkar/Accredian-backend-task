@@ -1,0 +1,31 @@
+
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = require("../config");
+
+const authMiddleware = (req,res,next)=>{
+    const head_token = req.headers.authorization;
+
+    if(!head_token && !head_token.startsWith("Bearer ")){
+        return res.status(403).json({
+            meassage:"Invalid Token"
+        })
+    }
+
+    const token=head_token.split(" ")[1];
+
+    try{
+        const decode = jwt.verify(token,JWT_SECRET);
+        req.userId=decode.userId;
+        next();
+    }
+    catch(err){
+        return res.status(403).json({
+            meassage:"Something went wrong",
+            err:err
+        })
+    }
+}
+
+module.exports={
+    authMiddleware
+}
