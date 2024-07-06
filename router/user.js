@@ -143,7 +143,7 @@ userRouter.post("/refer", authMiddleware, async (req, res) => {
             }
         });
 
-        const emailText = `Hi ${refereeName},\n\n${referrer.name} has referred you to join the course: ${course}.`;
+        const emailText = `Hi ${refereeName},\n\n${referrer.name} has referred you to join the course: ${course}.\n\n<h1><a herf="https://accredian-frontend-task-pink.vercel.app/">https://accredian-frontend-task-pink.vercel.app/</a><h1>`;
 
         await sendRefer(refereeEmail, emailText);
 
